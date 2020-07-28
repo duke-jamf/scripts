@@ -9,7 +9,7 @@
 
 # Check dependencies
 if [ $# -lt 1 ]; then
-    echo "Usage: cask2pkg.sh {cask_token}"
+    echo "Usage: cask2pkg.sh {cask_token} [pkgbuild_options]"
     exit 1
 fi
 if [ ! "`which brew`" ]; then
@@ -17,6 +17,7 @@ if [ ! "`which brew`" ]; then
     exit 2
 fi
 TOKEN=$1
+shift
 
 # Verify the Cask
 brew cask info $TOKEN
@@ -26,8 +27,8 @@ if [ $RESULT -ne 0 ]; then
 fi
 
 # Load attributes
-PKGNAME=`brew cask _stanza name $TOKEN`
-PKGVERSION=`brew cask _stanza version $TOKEN`
+CASKNAME=`brew cask _stanza name $TOKEN | tr -d '["]'`
+CASKVERSION=`brew cask _stanza version $TOKEN`
 
 # Install/update the Cask
 brew cask install $TOKEN
@@ -46,4 +47,17 @@ for LINK in "$PKGDIR/*"; do
 	rsync --archive --relative "$FILE" "$TMPDIR"
 done
 
-echo $TMPDIR
+PKGNAME="$CASKNAME $CASKVERSION.pkg"
+pkgbuild "$@" --root "$TMPDIR" "./$PKGNAME"
+RESULT=$?
+
+if [ $RESULT -ne 0 ]; then
+	echo "Failed to create package!"
+	rm -rf "$TMPDIR"
+	exit $RESULT
+fi
+
+echo "Package build successful:"
+echo `pwd`"/$PKGNAME"
+
+exit 0
