@@ -12,6 +12,8 @@ if [ $# -lt 1 ]; then
     exit 1
 fi
 
+SCRIPTS=`dirname "$0"`
+
 # Load variables from the definition
 . "$1"
 
@@ -19,7 +21,7 @@ echo "Installing $PKGNAME via $PKGTYPE"
 
 case $PKGTYPE in
 	cask)
-		brew cask install $PKGSLUG $BREWARGS
+		"$SCRIPTS/cask2pkg.sh" $PKGSLUG $PKGARGS
 		break
 		;;
 esac
