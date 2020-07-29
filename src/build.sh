@@ -26,7 +26,7 @@ case $PKGTYPE in
 		RESULT=$?
 		if [ $RESULT -ne 0 ]; then
 			echo "Unable to convert Cask to package: $PKGSLUG"
-			exit $?
+			exit $RESULT
 		fi
 		
 		# Move the package and manifest into the definitions directory
