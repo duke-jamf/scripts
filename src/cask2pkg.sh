@@ -40,7 +40,7 @@ fi
 
 # Stage resources
 TMPDIR=`mktemp -d -t cask2pkg`
-PKGDIR=`brew cask info cyberduck | awk 'NR==3 { print $1 }'`
+PKGDIR=`brew cask info $TOKEN | awk 'NR==3 { print $1 }'`
 
 for LINK in "$PKGDIR/*"; do
 	FILE=`readlink $LINK`
@@ -59,5 +59,13 @@ fi
 
 echo "Package build successful:"
 echo `pwd`"/$PKGNAME"
+
+# Generate the manifest
+MANIFEST=`pwd`"/.manifest"
+
+date > "$MANIFEST"
+echo "$TOKEN" >> "$MANIFEST"
+echo "$CASKVERSION" >> "$MANIFEST"
+echo "$PKGNAME" >> "$MANIFEST"
 
 exit 0

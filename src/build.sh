@@ -8,20 +8,36 @@
 ##
 
 if [ $# -lt 1 ]; then
-    echo "Usage: build.sh {path_to_definition}"
+    echo "Usage: build.sh {path/to/definition}"
     exit 1
 fi
 
+DEFINITION="$1"
 SCRIPTS=`dirname "$0"`
 
 # Load variables from the definition
-. "$1"
+. "$DEFINITION/variables.sh"
 
 echo "Installing $PKGNAME via $PKGTYPE"
 
 case $PKGTYPE in
 	cask)
 		"$SCRIPTS/cask2pkg.sh" $PKGSLUG $PKGARGS
+		RESULT=$?
+		if [ $RESULT -ne 0 ]; then
+			echo "Unable to convert Cask to package: $PKGSLUG"
+			exit $?
+		fi
+		
+		# Move the package and manifest into the definitions directory
+		PKGNAME=`tail -n 1 ".manifest"`
+		mv "$PKGNAME" "$DEFINITION/"
+		mv ".manifest" "$DEFINITION/"
+
 		break
 		;;
 esac
+
+echo "Build of $PKGNAME succeeded!"
+
+exit 0
