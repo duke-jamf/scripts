@@ -12,8 +12,8 @@ if [ $# -lt 1 ]; then
     exit 1
 fi
 
-DEFINITION="$1"
 SCRIPTS=`dirname "$0"`
+DEFINITION="$1"
 
 # Load variables from the definition
 . "$DEFINITION/variables.sh"
@@ -22,7 +22,7 @@ echo "Installing $PKGNAME via $PKGTYPE"
 
 case $PKGTYPE in
 	cask)
-		"$SCRIPTS/cask2pkg.sh" $PKGSLUG $PKGARGS
+		"$SCRIPTS/build-cask.sh" $PKGSLUG $PKGARGS
 		RESULT=$?
 		if [ $RESULT -ne 0 ]; then
 			echo "Unable to convert Cask to package: $PKGSLUG"
