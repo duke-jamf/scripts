@@ -1,7 +1,11 @@
+#!/bin/sh
+
 ##
-# Duke JAMF Package Workflow Definition
+# Duke JAMF Package Workflow Utility
 #
 # https://github.com/duke-jamf-utilities/macos-pkgbuild
+#
+# Custom verification process for a package.
 ##
 
 APP="/Applications/Cyberduck.app"
