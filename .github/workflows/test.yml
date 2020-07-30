@@ -1,0 +1,27 @@
+name: Test
+
+on:
+  pull_request:
+    branches: 
+      - develop
+
+jobs:
+  main:
+    name: Test Scripts
+
+    runs-on: macos-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Install dependencies
+        run: brew tap mgatner/pkg
+
+      - name: Test build and verify (custom)
+        run: |
+          src/build.sh tests/cyberduck
+          sudo src/verify.sh tests/cyberduck
+
+      - name: Test verify (basic)
+        run: sudo src/verify.sh tests/seashore

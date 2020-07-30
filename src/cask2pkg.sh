@@ -48,9 +48,9 @@ for LINK in "$PKGDIR/*"; do
 done
 
 PKGNAME="$CASKNAME $CASKVERSION.pkg"
+
 pkgbuild "$@" --root "$TMPDIR" "./$PKGNAME"
 RESULT=$?
-
 if [ $RESULT -ne 0 ]; then
 	echo "Failed to create package!"
 	rm -rf "$TMPDIR"

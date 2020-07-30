@@ -56,7 +56,7 @@ if [ -x "$DEFINITION/verify.sh" ]; then
 	sh "$DEFINITION/verify.sh"
 	RESULT=$?
 	if [ $RESULT -ne 0 ]; then
-		exit $?
+		exit $RESULT
 	fi
 
 	echo "Verified (custom) package: $PKGFILE"
@@ -71,7 +71,7 @@ for APP in `pkgutil --payload-files "$PKGFILE" | awk '/.\.app$/{ print $0 }'`; d
 		RESULT=$?
 		if [ $RESULT -ne 0 ]; then
 			echo "Unable to launch application: $TARGET$APP"
-			exit $?
+			exit $RESULT
 		fi
 	fi
 done
