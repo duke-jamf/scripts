@@ -12,9 +12,9 @@ if [ $# -lt 1 ]; then
     exit 1
 fi
 
-DEFINITION="$1"
 SCRIPTS=`dirname "$0"`
-MANIFEST="$1/.manifest"
+DEFINITION="$1"
+MANIFEST="$DEFINITION/.manifest"
 TARGET="$2"
 if [ ! "$TARGET" ]; then
 	TARGET="/"

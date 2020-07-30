@@ -18,10 +18,5 @@ jobs:
       - name: Install dependencies
         run: brew tap mgatner/pkg
 
-      - name: Test build and verify (custom)
-        run: |
-          src/build.sh tests/cyberduck
-          sudo src/verify.sh tests/cyberduck
-
-      - name: Test verify (basic)
-        run: sudo src/verify.sh tests/seashore
+      - name: Run Test Suite
+        run: tests/run.sh
