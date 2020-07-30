@@ -9,7 +9,7 @@
 
 # Check dependencies
 if [ $# -lt 1 ]; then
-    echo "Usage: cask2pkg.sh {cask_token} [pkgbuild_options]"
+    echo "Usage: build-cask.sh {cask_token} [pkgbuild_options]"
     exit 1
 fi
 if [ ! "`which brew`" ]; then

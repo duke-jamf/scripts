@@ -1,0 +1,58 @@
+#!/bin/sh
+
+##
+# Duke JAMF Package Workflow Utility
+# https://github.com/duke-jamf-utilities/macos-pkgbuild
+#
+# Generates a package definition from a Cask token.
+##
+
+if [ $# -lt 1 ]; then
+    echo "Usage: source-cask.sh {cask_token} [target_directory]"
+    exit 1
+fi
+if [ ! "`which brew`" ]; then
+    echo "ERROR: Homebrew not found!"
+    exit 2
+fi
+
+SCRIPTS=`dirname "$0"`
+TOKEN=$1
+
+TARGET="$2"
+if [ ! "$TARGET" ]; then
+	TARGET="."
+fi
+DEFINITION="$TARGET/$TOKEN"
+
+# Check the directory
+if [ -d "$DEFINITION" ]; then
+	echo "Error! Target direction already exists: $DEFINITION"
+	exit 3
+fi
+
+# Verify the Cask
+brew cask info $TOKEN
+RESULT=$?
+if [ $RESULT -ne 0 ]; then
+	exit $RESULT
+fi
+
+CASKNAME=`brew cask _stanza name $TOKEN | tr -d '["]'`
+
+# Create the directory
+mkdir -p "$DEFINITION"
+
+# Create the file with default header
+FILE="$DEFINITION/variables.sh"
+cat "$SCRIPTS/header.txt" > "$FILE"
+
+# Add each variable
+echo 'PKGNAME="'$CASKNAME'"' >> "$FILE"
+echo "PKGSLUG=$TOKEN" >> "$FILE"
+echo "PKGTYPE=cask" >> "$FILE"
+echo 'PKGARGS=""' >> "$FILE"
+
+echo "$CASKNAME definition sourced to: $DEFINITION"
+
+exit 0

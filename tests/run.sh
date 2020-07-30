@@ -9,12 +9,22 @@ SCRIPTS="$TESTS/../src"
 
 tear_down()
 {
+	rm -rf "$TESTS/witch"
+	rm -rf "$TESTS/cyberduck/*.pkg"
 	rm -f "$TESTS/cyberduck/.manifest"
-	rm -f "$TESTS/cyberduck/*.pkg"
 }
 
 echo "************************************"
-echo "* CHECK (CASK)                       *"
+echo "* SOURCE (CASK)                    *"
+echo "************************************"
+
+"$SCRIPTS/source-cask.sh" "witch" "$TESTS"
+RESULT=$?; if [ $RESULT -ne 0 ]; then tear_down; exit $RESULT; fi
+if [ ! -f "$TESTS/witch/variables.sh" ]; then echo "FAIL!"; tear_down; exit 1; fi
+echo "	PASS!"
+
+echo "************************************"
+echo "* CHECK (CASK)                     *"
 echo "************************************"
 
 printf "Missing..."
@@ -33,9 +43,10 @@ echo "************************************"
 
 "$SCRIPTS/build.sh" "$TESTS/cyberduck"
 RESULT=$?; if [ $RESULT -ne 0 ]; then tear_down; exit $RESULT; fi
+echo "	PASS!"
 
 echo "************************************"
-echo "* CHECK (CASK)                       *"
+echo "* CHECK (CASK)                     *"
 echo "************************************"
 
 printf "Current..."
@@ -44,18 +55,20 @@ if [ "$RESULT" != "current" ]; then echo "	FAIL ($RESULT)"; tear_down; exit 1; f
 echo "	PASS!"
 
 echo "************************************"
-echo "* VERIFY (BASIC) ***"
+echo "* VERIFY (BASIC)                   *"
 echo "************************************"
 
 sudo "$SCRIPTS/verify.sh" "$TESTS/seashore"
 RESULT=$?; if [ $RESULT -ne 0 ]; then tear_down; exit $RESULT; fi
+echo "	PASS!"
 
 echo "************************************"
-echo "* VERIFY (CUSTOM) ***"
+echo "* VERIFY (CUSTOM)                  *"
 echo "************************************"
 
 sudo "$SCRIPTS/verify.sh" "$TESTS/cyberduck"
 RESULT=$?; if [ $RESULT -ne 0 ]; then tear_down; exit $RESULT; fi
+echo "	PASS!"
 
 echo "All tests passed!"
 
