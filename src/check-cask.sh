@@ -9,7 +9,7 @@
 ##
 
 if [ $# -lt 1 ]; then
-    echo "Usage: check.sh {path/to/definition}"
+    echo "Usage: check-cask.sh {path/to/definition}"
     exit 1
 fi
 
