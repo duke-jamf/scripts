@@ -1,7 +1,6 @@
 ##
 # Duke JAMF Package Workflow Definition
-#
-# https://github.com/duke-jamf-utilities/macos-pkgbuild
+# https://github.com/duke-jamf/definitions
 ##
 
 PKGNAME="Cyberduck"

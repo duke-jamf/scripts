@@ -2,7 +2,7 @@
 
 ##
 # Duke JAMF Package Workflow Utility
-# https://github.com/duke-jamf-utilities/macos-pkgbuild
+# https://github.com/duke-jamf/scripts
 #
 # Takes the name of a valid Homebrew Cask and creates a .pkg
 ##

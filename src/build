@@ -2,7 +2,7 @@
 
 ##
 # Duke JAMF Package Workflow Utility
-# https://github.com/duke-jamf-utilities/macos-pkgbuild
+# https://github.com/duke-jamf/scripts
 #
 # Takes a package definition as input and builds a .pkg
 ##

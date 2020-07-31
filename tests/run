@@ -1,9 +1,10 @@
 #!/bin/sh
 
 ##
-# Duke JAMF Package Workflow Definition
+# Duke JAMF Package Workflow Utility
+# https://github.com/duke-jamf/scripts
 #
-# https://github.com/duke-jamf-utilities/macos-pkgbuild
+# Runs the test suite for all scripts.
 ##
 
 TESTS=`dirname "$0"`

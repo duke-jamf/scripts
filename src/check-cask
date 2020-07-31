@@ -2,7 +2,7 @@
 
 ##
 # Duke JAMF Package Workflow Utility
-# https://github.com/duke-jamf-utilities/macos-pkgbuild
+# https://github.com/duke-jamf/scripts
 #
 # Checks a manifest against available versions.
 # Outputs one of the following: missing, outdated, current

@@ -2,7 +2,7 @@
 
 ##
 # Duke JAMF Package Workflow Utility
-# https://github.com/duke-jamf-utilities/macos-pkgbuild
+# https://github.com/duke-jamf/scripts
 #
 # Generates a package definition from a Cask token.
 ##
