@@ -1,5 +1,5 @@
 ##
-# Duke JAMF Package Workflow Definition
+# Duke JAMF Packaging Workflow Definition
 # https://github.com/duke-jamf/definitions
 ##
 
