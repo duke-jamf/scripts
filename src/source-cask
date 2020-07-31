@@ -8,7 +8,7 @@
 ##
 
 if [ $# -lt 1 ]; then
-    echo "Usage: source-cask.sh {cask_token} [target_directory]"
+    echo "Usage: source-cask {cask_token} [target_directory]"
     exit 1
 fi
 if [ ! "`which brew`" ]; then
@@ -44,7 +44,7 @@ CASKNAME=`brew cask _stanza name $TOKEN | tr -d '["]'`
 mkdir -p "$DEFINITION"
 
 # Create the file with default header
-FILE="$DEFINITION/variables.sh"
+FILE="$DEFINITION/variables"
 cat "$SCRIPTS/header.txt" > "$FILE"
 
 # Add each variable

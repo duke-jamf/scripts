@@ -8,7 +8,7 @@
 ##
 
 if [ $# -lt 1 ]; then
-    echo "Usage: build.sh {path/to/definition}"
+    echo "Usage: build {path/to/definition}"
     exit 1
 fi
 
@@ -16,13 +16,13 @@ SCRIPTS=`dirname "$0"`
 DEFINITION="$1"
 
 # Load variables from the definition
-. "$DEFINITION/variables.sh"
+. "$DEFINITION/variables"
 
 echo "Installing $PKGNAME via $PKGTYPE"
 
 case $PKGTYPE in
 	cask)
-		"$SCRIPTS/build-cask.sh" $PKGSLUG $PKGARGS
+		"$SCRIPTS/build-cask" $PKGSLUG $PKGARGS
 		RESULT=$?
 		if [ $RESULT -ne 0 ]; then
 			echo "Unable to convert Cask to package: $PKGSLUG"

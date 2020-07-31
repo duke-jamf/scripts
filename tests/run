@@ -1,3 +1,5 @@
+#!/bin/sh
+
 ##
 # Duke JAMF Package Workflow Definition
 #
@@ -18,9 +20,9 @@ echo "************************************"
 echo "* SOURCE (CASK)                    *"
 echo "************************************"
 
-"$SCRIPTS/source-cask.sh" "witch" "$TESTS"
+"$SCRIPTS/source-cask" "witch" "$TESTS"
 RESULT=$?; if [ $RESULT -ne 0 ]; then tear_down; exit $RESULT; fi
-if [ ! -f "$TESTS/witch/variables.sh" ]; then echo "FAIL!"; tear_down; exit 1; fi
+if [ ! -f "$TESTS/witch/variables" ]; then echo "FAIL!"; tear_down; exit 1; fi
 echo "	PASS!"
 
 echo "************************************"
@@ -28,12 +30,12 @@ echo "* CHECK (CASK)                     *"
 echo "************************************"
 
 printf "Missing..."
-RESULT=`"$SCRIPTS/check-cask.sh" "$TESTS/cyberduck"`
+RESULT=`"$SCRIPTS/check-cask" "$TESTS/cyberduck"`
 if [ "$RESULT" != "missing" ]; then echo "	FAIL ($RESULT)"; tear_down; exit 1; fi
 echo "	PASS!"
 
 printf "Outdated..."
-RESULT=`"$SCRIPTS/check-cask.sh" "$TESTS/seashore"`
+RESULT=`"$SCRIPTS/check-cask" "$TESTS/seashore"`
 if [ "$RESULT" != "outdated" ]; then echo "	FAIL ($RESULT)"; tear_down; exit 1; fi
 echo "	PASS!"
 
@@ -41,7 +43,7 @@ echo "************************************"
 echo "* BUILD                            *"
 echo "************************************"
 
-"$SCRIPTS/build.sh" "$TESTS/cyberduck"
+"$SCRIPTS/build" "$TESTS/cyberduck"
 RESULT=$?; if [ $RESULT -ne 0 ]; then tear_down; exit $RESULT; fi
 echo "	PASS!"
 
@@ -50,7 +52,7 @@ echo "* CHECK (CASK)                     *"
 echo "************************************"
 
 printf "Current..."
-RESULT=`"$SCRIPTS/check-cask.sh" "$TESTS/cyberduck"`
+RESULT=`"$SCRIPTS/check-cask" "$TESTS/cyberduck"`
 if [ "$RESULT" != "current" ]; then echo "	FAIL ($RESULT)"; tear_down; exit 1; fi
 echo "	PASS!"
 
@@ -58,7 +60,7 @@ echo "************************************"
 echo "* VERIFY (BASIC)                   *"
 echo "************************************"
 
-sudo "$SCRIPTS/verify.sh" "$TESTS/seashore"
+sudo "$SCRIPTS/verify" "$TESTS/seashore"
 RESULT=$?; if [ $RESULT -ne 0 ]; then tear_down; exit $RESULT; fi
 echo "	PASS!"
 
@@ -66,7 +68,7 @@ echo "************************************"
 echo "* VERIFY (CUSTOM)                  *"
 echo "************************************"
 
-sudo "$SCRIPTS/verify.sh" "$TESTS/cyberduck"
+sudo "$SCRIPTS/verify" "$TESTS/cyberduck"
 RESULT=$?; if [ $RESULT -ne 0 ]; then tear_down; exit $RESULT; fi
 echo "	PASS!"
 

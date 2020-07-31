@@ -9,7 +9,7 @@
 ##
 
 if [ $# -lt 1 ]; then
-    echo "Usage: check-cask.sh {path/to/definition}"
+    echo "Usage: check-cask {path/to/definition}"
     exit 1
 fi
 
@@ -18,7 +18,7 @@ DEFINITION="$1"
 MANIFEST="$DEFINITION/.manifest"
 
 # Load variables from the definition
-. "$DEFINITION/variables.sh"
+. "$DEFINITION/variables"
 
 # Check for a manifest
 if [ ! -f "$MANIFEST" ]; then
