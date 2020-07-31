@@ -47,6 +47,10 @@ echo "************************************"
 RESULT=$?; if [ $RESULT -ne 0 ]; then tear_down; exit $RESULT; fi
 echo "	PASS!"
 
+"$SCRIPTS/build" "$TESTS/witch"
+RESULT=$?; if [ $RESULT -ne 0 ]; then tear_down; exit $RESULT; fi
+echo "	PASS!"
+
 echo "************************************"
 echo "* CHECK (CASK)                     *"
 echo "************************************"

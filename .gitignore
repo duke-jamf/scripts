@@ -1,0 +1,5 @@
+.DS_Store
+.manifest
+!tests/seashore/.manifest
+*.pkg
+!tests/seashore/Seashore 2.5.9.pkg
