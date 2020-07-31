@@ -16,6 +16,10 @@ tear_down()
 	rm -f "$TESTS/cyberduck/.manifest"
 }
 
+# Require sudo immediately
+echo "Gathering permission..."
+sudo echo "	PASS!"
+
 echo "************************************"
 echo "* SOURCE (CASK)                    *"
 echo "************************************"

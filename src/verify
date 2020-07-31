@@ -33,7 +33,7 @@ PKGNAME=`tail -n 1 "$MANIFEST"`
 PKGFILE="$DEFINITION/$PKGNAME"
 if [ ! -f "$PKGFILE" ]; then
 	echo "Unable to locate the package: $PKGFILE"
-	exit 2
+	exit 3
 fi
 
 # Verify it's a legit package
