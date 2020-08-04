@@ -35,16 +35,16 @@ The following environment variables are available:
 
 * `PKGPREFIX`: Used to set the bundle identifier on the generated packages. Example: `edu.duke`
 
-> It is highly recommend you set a package identifier prefix otherwise your resulting packages will be be prefixed "com.example"
+> *Note: It is highly recommend you set a package identifier prefix otherwise your resulting packages will be be prefixed `com.example`*
 
 ## Usage
 
 The typical workflow follows these steps:
 
-1. Sourcing
-2. Building
-3. Verifying
-4. Checking
+1. [Sourcing](#sourcing)
+2. [Building](#building)
+3. [Verifying](#verifying)
+4. [Checking](#checking)
 
 ### Sourcing
 
