@@ -12,6 +12,8 @@ SCRIPTS="$TESTS/../src"
 
 tear_down()
 {
+	killall "Seashore" > /dev/null 2>&1
+	killall "Cyberduck" > /dev/null 2>&1
 	rm -rf "$TESTS/witch"
 	rm -rf "$TESTS/cyberduck/*.pkg"
 	rm -f "$TESTS/cyberduck/.manifest"
@@ -20,6 +22,9 @@ tear_down()
 # Require sudo immediately
 echo "Gathering permission..."
 sudo echo "	PASS!"
+
+# Start with a clean slate
+tear_down
 
 echo "************************************"
 echo "* SOURCE (CASK)                    *"
@@ -48,12 +53,21 @@ echo "************************************"
 echo "* BUILD                            *"
 echo "************************************"
 
+echo "Standard build..."
 "$SCRIPTS/build" "$TESTS/cyberduck"
 RESULT=$?; if [ $RESULT -ne 0 ]; then tear_down; exit $RESULT; fi
 echo "	PASS!"
 
-"$SCRIPTS/build" "$TESTS/witch"
+echo "Build with arguments..."
+"$SCRIPTS/build" "$TESTS/witch" "--analyze"
 RESULT=$?; if [ $RESULT -ne 0 ]; then tear_down; exit $RESULT; fi
+
+# Verify it created a PLIST instead of a package
+printf "Verifying PLIST contents..."
+for FILE in "$TESTS/witch"/*.pkg; do
+	RESULT=`tail -n 1 "$FILE"`
+	if [ "$RESULT" != "</plist>" ]; then echo "FAIL"; tear_down; exit 1; fi
+done
 echo "	PASS!"
 
 echo "************************************"

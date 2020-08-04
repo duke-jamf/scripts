@@ -22,8 +22,20 @@ to generate definitions on-the-fly.
 
 ## Installation
 
-This project assumes you have [Homebrew](https://brew.sh) installed and configured. **Scripts**
-requires no configuration, so simply download or clone this repo.
+This project assumes you have [Homebrew](https://brew.sh) installed and configured. Download
+or clone [Scripts](https://github.com/duke-jamf/scripts) and procure your desired definitions.
+
+A number of configurations may be made using environment variables. Before running the scripts
+set and export each variable, e.g.:
+
+	$ PKGPREFIX=org.company
+	$ export PKGPREFIX
+
+The following environment variables are available:
+
+* `PKGPREFIX`: Used to set the bundle identifier on the generated packages. Example: `edu.duke`
+
+> It is highly recommend you set a package identifier prefix otherwise your resulting packages will be be prefixed "com.example"
 
 ## Usage
 
@@ -86,6 +98,11 @@ the definition source:
 
 This will display one of three results: "missing", "outdated", or "current". This is handy
 for determining when it is time to build and deploy an updated package.
+
+## Examples
+
+See the [Automate repo](https://github.com/duke-jamf/automate) for an example of using these
+scripts together with the definitions.
 
 ## Troubleshooting
 

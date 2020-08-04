@@ -66,13 +66,23 @@ fi
 # Try to launch any apps specified by the payload
 for APP in `pkgutil --payload-files "$PKGFILE" | awk '/.\.app$/{ print $0 }'`; do
 	if [ -d "$TARGET$APP" ]; then
-		echo "Attempting to launch $APP..."
+		APPNAME=`basename "$TARGET$APP"`
+
+		# Ignore very popular embedded autoupdate apps
+		if [ "$APPNAME" = "Autoupdate.app" ]; then
+			break
+		fi
+
+		echo "Attempting to launch $APPNAME..."
 		open "$TARGET$APP"
 		RESULT=$?
 		if [ $RESULT -ne 0 ]; then
-			echo "Unable to launch application: $TARGET$APP"
+			echo "Unable to launch $APPNAME at $TARGET$APP"
 			exit $RESULT
 		fi
+
+		# Attempt to quit the app
+		killall "$APPNAME" > /dev/null 2>&1
 	fi
 done
 

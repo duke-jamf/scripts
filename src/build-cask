@@ -39,7 +39,7 @@ if [ $RESULT -ne 0 ]; then
 fi
 
 # Stage resources
-TMPDIR=`mktemp -d -t cask2pkg`
+TMPDIR=`mktemp -d -t build-cask`
 PKGDIR=`brew cask info $TOKEN | awk 'NR==3 { print $1 }'`
 
 for LINK in "$PKGDIR/*"; do
@@ -47,9 +47,15 @@ for LINK in "$PKGDIR/*"; do
 	rsync --archive --relative "$FILE" "$TMPDIR"
 done
 
+# Determine package identifiers
+if [ ! "$PKGPREFIX" ]; then
+	PKGPREFIX=com.example
+fi
+PKGID="$PKGPREFIX.$TOKEN"
 PKGNAME="$CASKNAME $CASKVERSION.pkg"
 
-pkgbuild "$@" --root "$TMPDIR" "./$PKGNAME"
+# Run pkgbuild with arguments
+pkgbuild "$@" --identifier "$PKGID" --version "$CASKVERSION" --root "$TMPDIR" "./$PKGNAME"
 RESULT=$?
 if [ $RESULT -ne 0 ]; then
 	echo "Failed to create package!"

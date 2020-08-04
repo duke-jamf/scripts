@@ -8,21 +8,22 @@
 ##
 
 if [ $# -lt 1 ]; then
-    echo "Usage: build {path/to/definition}"
+    echo "Usage: build {path/to/definition} [pkgbuild_options]"
     exit 1
 fi
 
 SCRIPTS=`dirname "$0"`
 DEFINITION="$1"
+shift
 
 # Load variables from the definition
 . "$DEFINITION/variables"
 
-echo "Installing $PKGNAME via $PKGTYPE"
+echo "Building $PKGNAME via $PKGTYPE"
 
 case $PKGTYPE in
 	cask)
-		"$SCRIPTS/build-cask" $PKGSLUG $PKGARGS
+		"$SCRIPTS/build-cask" $PKGSLUG "$@"
 		RESULT=$?
 		if [ $RESULT -ne 0 ]; then
 			echo "Unable to convert Cask to package: $PKGSLUG"
