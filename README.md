@@ -35,7 +35,7 @@ The following environment variables are available:
 
 * `PKGPREFIX`: Used to set the bundle identifier on the generated packages. Example: `edu.duke`
 
-> *Note: It is highly recommend you set a package identifier prefix otherwise your resulting packages will be be prefixed `com.example`*
+> *Note: It is highly recommend you set a package identifier prefix otherwise your resulting packages will be prefixed `com.example`*
 
 ## Usage
 
